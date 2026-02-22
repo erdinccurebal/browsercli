@@ -52,13 +52,14 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 16px 24px;
-      display: inline-block;
+      padding: 16px 24px 16px 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
       font-family: 'SF Mono', SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
       font-size: 1rem;
       color: var(--green);
       cursor: pointer;
-      position: relative;
       transition: border-color 0.2s;
     }
     .install:hover { border-color: var(--accent); }
@@ -66,11 +67,10 @@
     .install .copy {
       color: var(--muted);
       font-size: 0.75rem;
-      position: absolute;
-      right: 12px;
-      top: 50%;
-      transform: translateY(-50%);
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      border-left: 1px solid var(--border);
+      padding-left: 16px;
+      white-space: nowrap;
     }
 
     /* Terminal demo */
@@ -230,13 +230,12 @@
       <h1><span>browser</span>cli</h1>
       <p>Navigate, scrape, and interact with web pages from the terminal. Built on Playwright.</p>
       <div class="badges">
-        <img src="https://img.shields.io/npm/v/browsercli?color=58a6ff&style=flat-square" alt="npm version">
-        <img src="https://img.shields.io/node/v/browsercli?color=3fb950&style=flat-square" alt="node version">
         <img src="https://img.shields.io/github/license/erdinccurebal/browsercli?color=bc8cff&style=flat-square" alt="license">
+        <img src="https://img.shields.io/badge/node-%3E%3D22-3fb950?style=flat-square" alt="node version">
+        <img src="https://img.shields.io/badge/version-0.1.0-58a6ff?style=flat-square" alt="version">
       </div>
-      <div class="install" onclick="navigator.clipboard.writeText('npm install -g browsercli')">
-        <span class="dollar">$ </span>npm install -g browsercli
-        <span class="copy">click to copy</span>
+      <div class="install" onclick="navigator.clipboard.writeText('npm install -g browsercli').then(()=>{this.querySelector('.copy').textContent='copied!'})">
+        <span class="dollar">$ </span>npm install -g browsercli<span class="copy">copy</span>
       </div>
     </section>
 
