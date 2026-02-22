@@ -28,7 +28,7 @@ export function output(
 
     if (msg.includes("not found")) {
       process.stderr.write(
-        'Hint: Use "browsercli tabs" to see open tabs, or "browsercli go <url>" to open a page first.\n',
+        'Hint: Use "webcli tabs" to see open tabs, or "webcli go <url>" to open a page first.\n',
       );
     } else if (msg.includes("Timeout") || msg.includes("timeout")) {
       process.stderr.write(
@@ -36,7 +36,7 @@ export function output(
       );
     } else if (msg.includes("waiting for selector")) {
       process.stderr.write(
-        'Hint: Verify the selector. Use "browsercli source" to inspect the page.\n',
+        'Hint: Verify the selector. Use "webcli source" to inspect the page.\n',
       );
     }
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>browsercli - Headless Browser CLI</title>
+  <title>webcli - Headless Browser CLI</title>
   <meta name="description" content="Navigate, scrape, and interact with web pages from the terminal. Built on Playwright.">
   <style>
     :root {
@@ -230,12 +230,12 @@
       <h1><span>browser</span>cli</h1>
       <p>Navigate, scrape, and interact with web pages from the terminal. Built on Playwright.</p>
       <div class="badges">
-        <img src="https://img.shields.io/github/license/erdinccurebal/browsercli?color=bc8cff&style=flat-square" alt="license">
+        <img src="https://img.shields.io/github/license/erdinccurebal/webcli?color=bc8cff&style=flat-square" alt="license">
         <img src="https://img.shields.io/badge/node-%3E%3D22-3fb950?style=flat-square" alt="node version">
         <img src="https://img.shields.io/badge/version-0.1.0-58a6ff?style=flat-square" alt="version">
       </div>
-      <div class="install" onclick="navigator.clipboard.writeText('npm install -g browsercli').then(()=>{this.querySelector('.copy').textContent='copied!'})">
-        <span class="dollar">$ </span>npm install -g browsercli<span class="copy">copy</span>
+      <div class="install" onclick="navigator.clipboard.writeText('npm install -g @erdinccurebal/webcli').then(()=>{this.querySelector('.copy').textContent='copied!'})">
+        <span class="dollar">$ </span>npm install -g @erdinccurebal/webcli<span class="copy">copy</span>
       </div>
     </section>
 
@@ -248,17 +248,17 @@
           <span>Terminal</span>
         </div>
         <div class="terminal-body">
-          <span class="prompt">$</span> <span class="cmd">browsercli go https://example.com</span><br>
+          <span class="prompt">$</span> <span class="cmd">webcli go https://example.com</span><br>
           <span class="ok">Navigated to https://example.com (tab: default)</span><br><br>
-          <span class="prompt">$</span> <span class="cmd">browsercli source</span><br>
+          <span class="prompt">$</span> <span class="cmd">webcli source</span><br>
           <span class="out">[Page: https://example.com]</span><br>
           <span class="out">Example Domain</span><br>
           <span class="out">This domain is for use in illustrative examples...</span><br><br>
-          <span class="prompt">$</span> <span class="cmd">browsercli click "More information..."</span><br>
+          <span class="prompt">$</span> <span class="cmd">webcli click "More information..."</span><br>
           <span class="ok">Clicked "More information..." &rarr; https://www.iana.org/help/example-domains</span><br><br>
-          <span class="prompt">$</span> <span class="cmd">browsercli screenshot -o page.png</span><br>
+          <span class="prompt">$</span> <span class="cmd">webcli screenshot -o page.png</span><br>
           <span class="ok">Screenshot saved: page.png</span><br><br>
-          <span class="prompt">$</span> <span class="cmd">browsercli stop</span><br>
+          <span class="prompt">$</span> <span class="cmd">webcli stop</span><br>
           <span class="ok">Daemon stopped</span>
         </div>
       </div>
@@ -361,10 +361,10 @@
 
     <section class="cta">
       <div class="cta-buttons">
-        <a href="https://github.com/erdinccurebal/browsercli" class="btn btn-primary">
+        <a href="https://github.com/erdinccurebal/webcli" class="btn btn-primary">
           GitHub
         </a>
-        <a href="https://www.npmjs.com/package/browsercli" class="btn btn-secondary">
+        <a href="https://www.npmjs.com/package/@erdinccurebal/webcli" class="btn btn-secondary">
           npm
         </a>
       </div>
@@ -373,7 +373,7 @@
 
   <footer>
     <div class="container">
-      MIT License &middot; <a href="https://github.com/erdinccurebal/browsercli">erdinccurebal/browsercli</a>
+      MIT License &middot; <a href="https://github.com/erdinccurebal/webcli">erdinccurebal/webcli</a>
     </div>
   </footer>
 

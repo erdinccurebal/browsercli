@@ -1,11 +1,11 @@
 {
-  "name": "browsercli",
+  "name": "@erdinccurebal/webcli",
   "version": "0.1.0",
   "description": "Headless browser CLI — navigate, scrape, and interact from the terminal",
   "license": "MIT",
   "type": "module",
   "bin": {
-    "browsercli": "./dist/cli.js"
+    "webcli": "./dist/cli.js"
   },
   "files": [
     "dist"

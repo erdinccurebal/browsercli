@@ -5,7 +5,7 @@ import { registerAll } from "./commands/index.js";
 const program = new Command();
 
 program
-  .name("browsercli")
+  .name("webcli")
   .description("Headless browser CLI for Claude Code")
   .version("0.1.0")
   .option("--verbose", "enable verbose logging");

@@ -1,4 +1,4 @@
-# browsercli
+# webcli
 
 Headless browser CLI for AI coding agents. Control a real Chromium browser from the command line.
 
@@ -17,19 +17,19 @@ Built for [Claude Code](https://claude.com/claude-code) and similar AI-powered d
 ## Installation
 
 ```bash
-npm install -g browsercli
+npm install -g @erdinccurebal/webcli
 npx playwright install chromium
 ```
 
 ## Quick Start
 
 ```bash
-browsercli go https://example.com          # Navigate (auto-starts daemon)
-browsercli source                           # Read page text
-browsercli links                            # List all links
-browsercli click "More information..."      # Click by visible text
-browsercli screenshot -o page.png           # Take screenshot
-browsercli stop                             # Stop daemon
+webcli go https://example.com          # Navigate (auto-starts daemon)
+webcli source                           # Read page text
+webcli links                            # List all links
+webcli click "More information..."      # Click by visible text
+webcli screenshot -o page.png           # Take screenshot
+webcli stop                             # Stop daemon
 ```
 
 ## Commands
@@ -38,10 +38,10 @@ browsercli stop                             # Stop daemon
 
 | Command | Description |
 |---------|-------------|
-| `browsercli go <url>` | Navigate to URL |
-| `browsercli back` | Go back in history |
-| `browsercli forward` | Go forward in history |
-| `browsercli reload` | Reload current page |
+| `webcli go <url>` | Navigate to URL |
+| `webcli back` | Go back in history |
+| `webcli forward` | Go forward in history |
+| `webcli reload` | Reload current page |
 
 Options for `go`: `-w, --wait <strategy>` — `domcontentloaded` (default), `networkidle`, `load`
 
@@ -49,52 +49,52 @@ Options for `go`: `-w, --wait <strategy>` — `domcontentloaded` (default), `net
 
 | Command | Description |
 |---------|-------------|
-| `browsercli source` | Get visible text content of the page |
-| `browsercli html <selector>` | Get innerHTML of a specific element |
-| `browsercli attr <selector> <attribute>` | Get an element's attribute value |
-| `browsercli links` | List all links (text + href) |
-| `browsercli forms` | List all forms with their inputs |
-| `browsercli eval <js>` | Execute JavaScript and return result |
+| `webcli source` | Get visible text content of the page |
+| `webcli html <selector>` | Get innerHTML of a specific element |
+| `webcli attr <selector> <attribute>` | Get an element's attribute value |
+| `webcli links` | List all links (text + href) |
+| `webcli forms` | List all forms with their inputs |
+| `webcli eval <js>` | Execute JavaScript and return result |
 
 ### Interaction
 
 | Command | Description |
 |---------|-------------|
-| `browsercli click <text>` | Click element by visible text |
-| `browsercli clicksel <selector>` | Click element by CSS selector |
-| `browsercli focus <selector>` | Focus element by CSS selector |
-| `browsercli type <text>` | Type text with keyboard |
-| `browsercli fill <selector> <value>` | Fill an input field |
-| `browsercli select <selector> <value>` | Select a dropdown option |
-| `browsercli press <key>` | Press a keyboard key (Enter, Tab, Escape...) |
+| `webcli click <text>` | Click element by visible text |
+| `webcli clicksel <selector>` | Click element by CSS selector |
+| `webcli focus <selector>` | Focus element by CSS selector |
+| `webcli type <text>` | Type text with keyboard |
+| `webcli fill <selector> <value>` | Fill an input field |
+| `webcli select <selector> <value>` | Select a dropdown option |
+| `webcli press <key>` | Press a keyboard key (Enter, Tab, Escape...) |
 
 ### Waiting
 
 | Command | Description |
 |---------|-------------|
-| `browsercli wait <selector>` | Wait for CSS selector to become visible |
-| `browsercli waitfor <text>` | Wait for text to appear on page |
-| `browsercli sleep <ms>` | Sleep for specified milliseconds |
+| `webcli wait <selector>` | Wait for CSS selector to become visible |
+| `webcli waitfor <text>` | Wait for text to appear on page |
+| `webcli sleep <ms>` | Sleep for specified milliseconds |
 
 ### Cookies & Browser
 
 | Command | Description |
 |---------|-------------|
-| `browsercli cookie export` | Export cookies as JSON |
-| `browsercli cookie import <file>` | Import cookies from JSON file |
-| `browsercli viewport <width> <height>` | Change viewport size |
-| `browsercli useragent <string>` | Change user agent |
-| `browsercli network [on\|off]` | Toggle request/response logging |
-| `browsercli screenshot` | Take a full-page screenshot |
+| `webcli cookie export` | Export cookies as JSON |
+| `webcli cookie import <file>` | Import cookies from JSON file |
+| `webcli viewport <width> <height>` | Change viewport size |
+| `webcli useragent <string>` | Change user agent |
+| `webcli network [on\|off]` | Toggle request/response logging |
+| `webcli screenshot` | Take a full-page screenshot |
 
 ### Tab & Daemon Management
 
 | Command | Description |
 |---------|-------------|
-| `browsercli tabs` | List all open tabs |
-| `browsercli quit` | Close a tab |
-| `browsercli status` | Show daemon status (PID, uptime, tabs) |
-| `browsercli stop` | Stop the daemon and close browser |
+| `webcli tabs` | List all open tabs |
+| `webcli quit` | Close a tab |
+| `webcli status` | Show daemon status (PID, uptime, tabs) |
+| `webcli stop` | Stop the daemon and close browser |
 
 ### Global Options
 
@@ -107,13 +107,13 @@ Options for `go`: `-w, --wait <strategy>` — `domcontentloaded` (default), `net
 
 ## Configuration
 
-Create `~/.browsercli/config.json`:
+Create `~/.webcli/config.json`:
 
 ```json
 {
   "headless": true,
   "browser": "chromium",
-  "userDataDir": "~/.browsercli/browser-data",
+  "userDataDir": "~/.webcli/browser-data",
   "viewport": { "width": 1280, "height": 800 },
   "locale": "en-US",
   "timezoneId": "America/New_York",
@@ -129,9 +129,9 @@ Set `"headless": false` to use headed mode (required for sites with aggressive b
 ## Architecture
 
 ```
-CLI Client (browsercli)
+CLI Client (webcli)
     │
-    │── Unix Socket (~/.browsercli/daemon.sock)
+    │── Unix Socket (~/.webcli/daemon.sock)
     │
     ▼
 Daemon (background process)

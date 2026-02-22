@@ -1,4 +1,4 @@
-# Contributing to browsercli
+# Contributing to webcli
 
 ## Prerequisites
 
@@ -8,8 +8,8 @@
 ## Development Setup
 
 ```bash
-git clone https://github.com/user/browsercli.git
-cd browsercli
+git clone https://github.com/user/webcli.git
+cd webcli
 npm install
 npx playwright install chromium
 npm run build
@@ -62,7 +62,7 @@ src/
 4. **Register the command** in `src/commands/index.ts`
 5. **Add tests** in `tests/`
 
-### Example: Adding `browsercli title` command
+### Example: Adding `webcli title` command
 
 **1. Action** (`src/actions/read.ts`):
 ```typescript

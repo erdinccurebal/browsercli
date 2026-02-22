@@ -3,16 +3,16 @@ import fs from "node:fs";
 import { loadConfig } from "../src/config.js";
 
 vi.mock("../src/utils.js", () => ({
-  CONFIG_PATH: "/tmp/browsercli-test-config.json",
+  CONFIG_PATH: "/tmp/webcli-test-config.json",
 }));
 
 describe("loadConfig", () => {
   beforeEach(() => {
-    try { fs.unlinkSync("/tmp/browsercli-test-config.json"); } catch {}
+    try { fs.unlinkSync("/tmp/webcli-test-config.json"); } catch {}
   });
 
   afterEach(() => {
-    try { fs.unlinkSync("/tmp/browsercli-test-config.json"); } catch {}
+    try { fs.unlinkSync("/tmp/webcli-test-config.json"); } catch {}
   });
 
   it("returns defaults when no config file exists", () => {
@@ -24,7 +24,7 @@ describe("loadConfig", () => {
   });
 
   it("merges user config with defaults", () => {
-    fs.writeFileSync("/tmp/browsercli-test-config.json", JSON.stringify({
+    fs.writeFileSync("/tmp/webcli-test-config.json", JSON.stringify({
       headless: false,
       waitAfterClick: 1000,
     }));
@@ -35,7 +35,7 @@ describe("loadConfig", () => {
   });
 
   it("handles malformed config gracefully", () => {
-    fs.writeFileSync("/tmp/browsercli-test-config.json", "not json{{{");
+    fs.writeFileSync("/tmp/webcli-test-config.json", "not json{{{");
     const config = loadConfig();
     expect(config.waitAfterClick).toBe(500); // falls back to defaults
   });
