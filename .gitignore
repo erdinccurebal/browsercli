@@ -4,4 +4,9 @@ dist/
 .DS_Store
 *.sock
 *.pid
+*.tgz
+*.log
+.env
+.env.*
+coverage/
 browser-data/

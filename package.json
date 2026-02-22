@@ -3,7 +3,27 @@
   "version": "0.1.0",
   "description": "Headless browser CLI — navigate, scrape, and interact from the terminal",
   "license": "MIT",
+  "author": "erdinccurebal",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/erdinccurebal/webcli.git"
+  },
+  "homepage": "https://erdinccurebal.github.io/webcli/",
+  "bugs": {
+    "url": "https://github.com/erdinccurebal/webcli/issues"
+  },
+  "keywords": [
+    "cli",
+    "browser",
+    "headless",
+    "playwright",
+    "web-scraping",
+    "automation",
+    "typescript",
+    "agent",
+    "ai"
+  ],
   "bin": {
     "webcli": "./dist/cli.js"
   },

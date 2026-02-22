@@ -8,7 +8,7 @@
 ## Development Setup
 
 ```bash
-git clone https://github.com/user/webcli.git
+git clone https://github.com/erdinccurebal/webcli.git
 cd webcli
 npm install
 npx playwright install chromium
