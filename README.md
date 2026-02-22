@@ -4,6 +4,20 @@ Headless browser CLI for AI coding agents. Control a real Chromium browser from 
 
 Built for [Claude Code](https://claude.com/claude-code) and similar AI-powered development tools that need to interact with web pages programmatically.
 
+[![npm](https://img.shields.io/npm/v/@erdinccurebal/webcli?color=58a6ff&style=flat-square)](https://www.npmjs.com/package/@erdinccurebal/webcli)
+[![license](https://img.shields.io/github/license/erdinccurebal/webcli?color=bc8cff&style=flat-square)](./LICENSE)
+[![node](https://img.shields.io/badge/node-%3E%3D22-3fb950?style=flat-square)](https://nodejs.org)
+
+## Links
+
+| | |
+|---|---|
+| **npm** | [npmjs.com/package/@erdinccurebal/webcli](https://www.npmjs.com/package/@erdinccurebal/webcli) |
+| **Website** | [erdinccurebal.github.io/webcli](https://erdinccurebal.github.io/webcli/) |
+| **GitHub** | [github.com/erdinccurebal/webcli](https://github.com/erdinccurebal/webcli) |
+| **ClawHub** | [clawhub.ai/skills/webcli](https://clawhub.ai/skills/webcli) |
+| **Skills.sh** | `npx skills add erdinccurebal/webcli` |
+
 ## Features
 
 - **30+ commands** — navigate, read page content, interact with elements, take screenshots
@@ -13,12 +27,27 @@ Built for [Claude Code](https://claude.com/claude-code) and similar AI-powered d
 - **Session persistence** — cookies and localStorage persist across daemon restarts
 - **JSON output** — structured output for programmatic consumption
 - **Headed/headless** — toggle via config for sites with bot detection
+- **Agent skill** — works as a skill for Claude Code, Cursor, Copilot, Codex, Windsurf and 30+ other agents
 
 ## Installation
+
+### As npm package
 
 ```bash
 npm install -g @erdinccurebal/webcli
 npx playwright install chromium
+```
+
+### As agent skill
+
+**Skills.sh** (Claude Code, Cursor, Copilot, Codex, Windsurf + 30 more):
+```bash
+npx skills add erdinccurebal/webcli
+```
+
+**ClawHub** (OpenClaw):
+```bash
+clawhub install webcli
 ```
 
 ## Quick Start
