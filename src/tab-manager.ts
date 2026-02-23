@@ -1,4 +1,5 @@
 import type { Browser, BrowserContext, Page } from "playwright";
+import type { Config } from "./config.js";
 
 const USER_AGENT =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36";
@@ -6,11 +7,13 @@ const USER_AGENT =
 export class TabManager {
   private tabs = new Map<string, Page>();
   private context: BrowserContext | null = null;
+  private config: Config | undefined;
 
-  constructor(existingContext?: BrowserContext) {
+  constructor(existingContext?: BrowserContext, config?: Config) {
     if (existingContext) {
       this.context = existingContext;
     }
+    this.config = config;
   }
 
   private async getContext(browser: Browser): Promise<BrowserContext> {
@@ -21,6 +24,11 @@ export class TabManager {
       locale: "en-US",
       timezoneId: "America/New_York",
       bypassCSP: true,
+      geolocation: this.config?.geolocation,
+      colorScheme: this.config?.colorScheme,
+      extraHTTPHeaders: this.config?.extraHeaders,
+      offline: this.config?.offline,
+      permissions: this.config?.geolocation ? ["geolocation"] : undefined,
     });
     // Remove webdriver flag from all new pages
     await this.context.addInitScript(() => {

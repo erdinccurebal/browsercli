@@ -12,6 +12,10 @@ export interface Config {
   waitAfterPress?: number;
   idleTimeout?: number;
   defaultTimeout?: number;
+  geolocation?: { latitude: number; longitude: number };
+  offline?: boolean;
+  colorScheme?: "light" | "dark" | "no-preference";
+  extraHeaders?: Record<string, string>;
 }
 
 const DEFAULTS = {

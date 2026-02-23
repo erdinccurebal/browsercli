@@ -7,7 +7,14 @@ import * as wait from "../actions/wait.js";
 import * as cookie from "../actions/cookie.js";
 import * as browser from "../actions/browser.js";
 import * as network from "../actions/network.js";
-import { screenshot } from "../actions/screenshot.js";
+import { screenshot, screenshotAnnotated } from "../actions/screenshot.js";
+import { snapshot } from "../actions/snapshot.js";
+import { pdf } from "../actions/pdf.js";
+import * as consoleActions from "../actions/console.js";
+import * as dialog from "../actions/dialog.js";
+import * as frame from "../actions/frame.js";
+import * as storage from "../actions/storage.js";
+import * as state from "../actions/state.js";
 
 export function registerAllHandlers(): void {
   // --- Tab-independent ---
@@ -81,6 +88,50 @@ export function registerAllHandlers(): void {
     return { ok: true, data: await read.attr(page!, selector, attribute) };
   });
 
+  registerHandler("title", async (_ctx, _req, page) => ({
+    ok: true, data: await read.title(page!),
+  }));
+
+  registerHandler("url", async (_ctx, _req, page) => ({
+    ok: true, data: await read.url(page!),
+  }));
+
+  registerHandler("value", async (_ctx, req, page) => {
+    const selector = requireString(req.args, "selector");
+    return { ok: true, data: await read.value(page!, selector) };
+  });
+
+  registerHandler("count", async (_ctx, req, page) => {
+    const selector = requireString(req.args, "selector");
+    return { ok: true, data: await read.count(page!, selector) };
+  });
+
+  registerHandler("box", async (_ctx, req, page) => {
+    const selector = requireString(req.args, "selector");
+    return { ok: true, data: await read.box(page!, selector) };
+  });
+
+  registerHandler("styles", async (_ctx, req, page) => {
+    const selector = requireString(req.args, "selector");
+    const props = req.args.props as string[] | undefined;
+    return { ok: true, data: await read.styles(page!, selector, props) };
+  });
+
+  registerHandler("visible", async (_ctx, req, page) => {
+    const selector = requireString(req.args, "selector");
+    return { ok: true, data: await read.visible(page!, selector) };
+  });
+
+  registerHandler("enabled", async (_ctx, req, page) => {
+    const selector = requireString(req.args, "selector");
+    return { ok: true, data: await read.enabled(page!, selector) };
+  });
+
+  registerHandler("checked", async (_ctx, req, page) => {
+    const selector = requireString(req.args, "selector");
+    return { ok: true, data: await read.checked(page!, selector) };
+  });
+
   // --- Interaction ---
 
   registerHandler("click", async (ctx, req, page) => {
@@ -120,6 +171,44 @@ export function registerAllHandlers(): void {
     return { ok: true, data: await interact.press(page!, key, ctx.config.waitAfterPress) };
   });
 
+  registerHandler("dblclick", async (ctx, req, page) => {
+    const text = requireString(req.args, "text");
+    return { ok: true, data: await interact.dblclick(page!, text, ctx.config.waitAfterClick) };
+  });
+
+  registerHandler("hover", async (_ctx, req, page) => {
+    const selector = requireString(req.args, "selector");
+    return { ok: true, data: await interact.hover(page!, selector) };
+  });
+
+  registerHandler("check", async (_ctx, req, page) => {
+    const selector = requireString(req.args, "selector");
+    return { ok: true, data: await interact.check(page!, selector) };
+  });
+
+  registerHandler("uncheck", async (_ctx, req, page) => {
+    const selector = requireString(req.args, "selector");
+    return { ok: true, data: await interact.uncheck(page!, selector) };
+  });
+
+  registerHandler("drag", async (_ctx, req, page) => {
+    const from = requireString(req.args, "from");
+    const to = requireString(req.args, "to");
+    return { ok: true, data: await interact.drag(page!, from, to) };
+  });
+
+  registerHandler("upload", async (_ctx, req, page) => {
+    const selector = requireString(req.args, "selector");
+    const filePath = requireString(req.args, "filePath");
+    return { ok: true, data: await interact.upload(page!, selector, filePath) };
+  });
+
+  registerHandler("scroll", async (_ctx, req, page) => {
+    const direction = requireString(req.args, "direction") as "up" | "down" | "left" | "right";
+    const amount = optionalNumber(req.args, "amount");
+    return { ok: true, data: await interact.scroll(page!, direction, amount) };
+  });
+
   // --- Wait ---
 
   registerHandler("wait", async (_ctx, req, page) => {
@@ -138,7 +227,90 @@ export function registerAllHandlers(): void {
 
   registerHandler("screenshot", async (_ctx, req, page) => {
     const output = optionalString(req.args, "output");
-    return { ok: true, data: await screenshot(page!, output) };
+    const fullPage = req.args.fullPage !== false;
+    return { ok: true, data: await screenshot(page!, output, { fullPage }) };
+  });
+
+  registerHandler("screenshot-annotated", async (_ctx, req, page) => {
+    const output = optionalString(req.args, "output");
+    return { ok: true, data: await screenshotAnnotated(page!, output) };
+  });
+
+  // --- Snapshot ---
+
+  registerHandler("snapshot", async (_ctx, req, page) => {
+    const interactiveOnly = req.args.interactiveOnly !== false;
+    const maxDepth = optionalNumber(req.args, "maxDepth");
+    return { ok: true, data: await snapshot(page!, { interactiveOnly, maxDepth }) };
+  });
+
+  // --- PDF ---
+
+  registerHandler("pdf", async (_ctx, req, page) => {
+    const output = optionalString(req.args, "output");
+    return { ok: true, data: await pdf(page!, output) };
+  });
+
+  // --- Console & Errors ---
+
+  registerHandler("console", async (_ctx, req, page) => {
+    const mode = optionalString(req.args, "mode") || "show";
+    if (mode === "on") return { ok: true, data: consoleActions.enableConsoleLogging(page!) };
+    if (mode === "off") return { ok: true, data: consoleActions.disableConsoleLogging(page!) };
+    const logs = consoleActions.getConsoleLogs(page!);
+    return { ok: true, data: { logs } };
+  });
+
+  registerHandler("errors", async (_ctx, _req, page) => {
+    const errors = consoleActions.getErrors(page!);
+    return { ok: true, data: { errors } };
+  });
+
+  // --- Dialog ---
+
+  registerHandler("dialog", async (_ctx, req, page) => {
+    const action = requireString(req.args, "action");
+    const promptText = optionalString(req.args, "promptText");
+    if (action === "accept") return { ok: true, data: await dialog.acceptDialog(page!, promptText) };
+    if (action === "dismiss") return { ok: true, data: await dialog.dismissDialog(page!) };
+    throw new Error(`Unknown dialog action: ${action}. Use "accept" or "dismiss".`);
+  });
+
+  // --- Frame ---
+
+  registerHandler("frame", async (_ctx, req, page) => {
+    const selector = requireString(req.args, "selector");
+    return { ok: true, data: await frame.switchToFrame(page!, selector) };
+  });
+
+  registerHandler("frame-main", async (_ctx, _req, page) => ({
+    ok: true, data: frame.switchToMain(page!),
+  }));
+
+  // --- Storage ---
+
+  registerHandler("storage", async (_ctx, req, page) => {
+    const action = requireString(req.args, "action");
+    if (action === "get") {
+      const key = optionalString(req.args, "key");
+      return { ok: true, data: await storage.storageGet(page!, key) };
+    }
+    if (action === "set") {
+      const key = requireString(req.args, "key");
+      const value = requireString(req.args, "value");
+      return { ok: true, data: await storage.storageSet(page!, key, value) };
+    }
+    if (action === "clear") {
+      return { ok: true, data: await storage.storageClear(page!) };
+    }
+    throw new Error(`Unknown storage action: ${action}. Use "get", "set", or "clear".`);
+  });
+
+  // --- Device ---
+
+  registerHandler("device", async (_ctx, req, page) => {
+    const deviceName = requireString(req.args, "device");
+    return { ok: true, data: await browser.setDevice(page!, deviceName) };
   });
 
   // --- Cookie ---
@@ -151,6 +323,18 @@ export function registerAllHandlers(): void {
     const cookies = req.args.cookies;
     if (!Array.isArray(cookies)) throw new Error("cookies must be an array");
     return { ok: true, data: await cookie.importCookies(page!, cookies) };
+  });
+
+  // --- State ---
+
+  registerHandler("state-save", async (_ctx, req, page) => {
+    const output = optionalString(req.args, "output");
+    return { ok: true, data: await state.saveState(page!, output) };
+  });
+
+  registerHandler("state-load", async (_ctx, req, page) => {
+    const input = requireString(req.args, "input");
+    return { ok: true, data: await state.loadState(page!, input) };
   });
 
   // --- Browser settings ---

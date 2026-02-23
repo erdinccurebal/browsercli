@@ -65,6 +65,11 @@ async function main() {
       locale: config.locale || "en-US",
       timezoneId: config.timezoneId || "America/New_York",
       bypassCSP: true,
+      geolocation: config.geolocation,
+      colorScheme: config.colorScheme,
+      extraHTTPHeaders: config.extraHeaders,
+      offline: config.offline,
+      permissions: config.geolocation ? ["geolocation"] : undefined,
     });
     await context.addInitScript(() => {
       Object.defineProperty(navigator, "webdriver", { get: () => false });
@@ -73,7 +78,7 @@ async function main() {
     tabManager = new TabManager(context);
   } else {
     browser = await browserType.launch({ headless, args: launchArgs });
-    tabManager = new TabManager();
+    tabManager = new TabManager(undefined, config);
   }
 
   registerAllHandlers();
