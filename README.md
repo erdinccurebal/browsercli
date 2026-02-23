@@ -13,7 +13,7 @@ Built for [Claude Code](https://claude.com/claude-code) and similar AI-powered d
 | | |
 |---|---|
 | **npm** | [npmjs.com/package/@erdinccurebal/webcli](https://www.npmjs.com/package/@erdinccurebal/webcli) |
-| **Website** | [erdinccurebal.github.io/webcli](https://erdinccurebal.github.io/webcli/) |
+| **Website** | [webcli.erdinc.curebal.dev](https://webcli.erdinc.curebal.dev/) |
 | **GitHub** | [github.com/erdinccurebal/webcli](https://github.com/erdinccurebal/webcli) |
 | **ClawHub** | [clawhub.ai/skills/webcli](https://clawhub.ai/skills/webcli) |
 | **Skills.sh** | `npx skills add erdinccurebal/webcli` |

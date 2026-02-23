@@ -15,7 +15,7 @@ npm install -g @erdinccurebal/webcli
 npx playwright install chromium
 ```
 
-Homepage: https://erdinccurebal.github.io/webcli/
+Homepage: https://webcli.erdinc.curebal.dev/
 Repository: https://github.com/erdinccurebal/webcli
 
 ## Commands Reference
